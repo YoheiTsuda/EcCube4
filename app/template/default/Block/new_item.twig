@@ -1,0 +1,49 @@
+{#
+/*
+ *
+ * new_item.twig
+ *
+ */
+#}
+{% set Products = CustomizeNewProduct() %}
+{% if Products|length > 0 %}
+<div class="ec-role">
+    <div class="ec-newItemRole">
+
+    	<div class="ec-secHeading">
+            <span class="ec-secHeading__en">NEW Goods</span>
+            <span class="ec-secHeading__line"></span>
+            <span class="ec-secHeading__ja">新入荷商品</span>
+        </div>
+
+        <div class="ec-newItemRole__list">
+
+            {% for Product in Products %}
+            <div class="ec-newItemRole__listItem">
+                <a href="{{ url('product_detail', {'id': Product.id}) }}">
+                    <img src="{{ asset(Product.main_list_image|no_image_product, 'save_image') }}">
+                    <p class="ec-newItemRole__listItemTitle">{{ Product.name }}</p>
+                    <p class="ec-newItemRole__listItemPrice">
+                    {% if Product.hasProductClass %}
+                        {% if Product.getPrice02Min == Product.getPrice02Max %}
+                            {{ Product.getPrice02IncTaxMin|price }}
+                        {% else %}
+                            {{ Product.getPrice02IncTaxMin|price }} ～ {{ Product.getPrice02IncTaxMax|price }}
+                        {% endif %}
+                    {% else %}
+                        {{ Product.getPrice02IncTaxMin|price }}
+                    {% endif %}
+                    </p>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div><!-- .ec-newItemRole__listItem end -->
+
+        <div clas="ec-newItemRole__listItemHeading ec-secHeading--tandem">
+        	<a class="ec-inlineBtn--top" href="{{ url('product_list') }}?orderby={{eccube_config.eccube_product_order_newer}}">&raquo; 全商品一覧はこちら</a>
+        </div>
+
+    </div><!-- .ec-newItemRole end -->
+</div><!-- .ec-role end -->
+{% endif %}
