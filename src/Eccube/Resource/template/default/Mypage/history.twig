@@ -46,7 +46,9 @@ file that was distributed with this source code.
                         </div>
                         <div class="ec-definitions">
                             <dt>{{ '問合せ番号'|trans }}</dt>
-                            <dd>{{ Shipping.TrackingNumber }}：<a href="http://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do?okurijoNo={{ Shipping.TrackingNumber }}" target="_blank">佐川</a>／西濃</dd>
+                            <dd>{{ Shipping.TrackingNumber }}：
+                            <a href="http://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do?okurijoNo={{ Shipping.TrackingNumber }}" target="_blank">佐川</a>／
+                            <a href="https://track.seino.co.jp/cgi-bin/gnpquery.pgm?GNPNO1={{ Shipping.TrackingNumber }}" target="_blank">西濃</a></dd>
                         </div>
                     {% endif %}
                     {% if BaseInfo.isOptionPoint %}
