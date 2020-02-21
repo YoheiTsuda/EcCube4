@@ -67,12 +67,6 @@ class DeliveryType extends AbstractType
                     new Assert\Url(),
                 ],
             ])
-            ->add('confirm_url2', TextType::class, [
-                'required' => false,
-                'constraints' => [
-                    new Assert\Url2(),
-                ],
-            ])
             ->add('sale_type', SaleTypeType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),

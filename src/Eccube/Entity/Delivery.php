@@ -73,13 +73,6 @@ if (!class_exists('\Eccube\Entity\Delivery')) {
         private $confirm_url;
 
         /**
-         * @var string|null
-         *
-         * @ORM\Column(name="confirm_url2", type="string", length=4000, nullable=true)
-         */
-        private $confirm_url2;
-
-        /**
          * @var int|null
          *
          * @ORM\Column(name="sort_no", type="integer", nullable=true, options={"unsigned":true})
@@ -258,20 +251,6 @@ if (!class_exists('\Eccube\Entity\Delivery')) {
         }
 
         /**
-         * Set confirmUrl2.
-         *
-         * @param string|null $confirmUrl2
-         *
-         * @return Delivery
-         */
-        public function setConfirmUrl2($confirmUrl2 = null)
-        {
-            $this->confirm_url2 = $confirmUrl2;
-
-            return $this;
-        }
-
-        /**
          * Get confirmUrl.
          *
          * @return string|null
@@ -279,16 +258,6 @@ if (!class_exists('\Eccube\Entity\Delivery')) {
         public function getConfirmUrl()
         {
             return $this->confirm_url;
-        }
-
-        /**
-         * Get confirmUrl2.
-         *
-         * @return string|null
-         */
-        public function getConfirmUrl2()
-        {
-            return $this->confirm_url2;
         }
 
         /**
