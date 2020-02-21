@@ -254,6 +254,9 @@ if (!class_exists('\Eccube\Entity\Delivery')) {
         {
             $this->confirm_url = $confirmUrl;
 
+            return $this;
+        }
+
         /**
          * Set confirmUrl2.
          *
