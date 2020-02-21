@@ -32,22 +32,27 @@ file that was distributed with this source code.
                             <div class="ec-historyRole__header">
                                 <div class="ec-historyListHeader">
                                     <p class="ec-historyListHeader__date">{{ Order.order_date|date_sec }}</p>
+
                                     <dl class="ec-definitions">
                                         <dt>{{ 'ご注文番号'|trans }}</dt>
                                         <dd>{{ Order.order_no }}</dd>
                                     </dl>
+
                                     <!-- 2020.02.21 tsuda 問い合わせ番号追加 start -->
                                     {% for Shipping in Order.Shippings %}
                                     {% if (BaseInfo.option_mypage_order_status_display) %}
+
                                         <dl class="ec-definitions">
                                             <dt>{{ 'ご注文状況'|trans }}</dt>
                                             <dd>{{ Order.CustomerOrderStatus }}</dd>
                                         </dl>
+
+                                        <dl class="ec-definitions">
+                                            <dt>{{ '問合せ番号'|trans }}</dt>
+                                            <dd>{{ Shipping.TrackingNumber }}</dd>
+                                        </dl>
+
                                     {% endif %}
-                                    <dl class="ec-definition">
-                                      <dt>{{ '問合せ番号'|trans }}</dt>
-                                      <dd>{{ Shipping.TrackingNumber }}</dd>
-                                    </dl>
                                     {% endfor %}
                                     <p class="ec-historyListHeader__action"><a class="ec-inlineBtn"
                                                                                href="{{ url('mypage_history', {'order_no': Order.order_no}) }}">{{ '詳細を見る'|trans }}</a>
