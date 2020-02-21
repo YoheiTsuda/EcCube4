@@ -39,8 +39,8 @@ file that was distributed with this source code.
                                 {% if Shipping.Delivery.confirm_url %}
                                     <br/>
                                     お問い合わせURL(佐川)：{{ Shipping.Delivery.confirm_url }}
+                                    <br/>{{ Shipping.Delivery.confirm_url }}{{ Shipping.tracking_number }}
                                 {% endif %}
-                                <br/>
                                 {% if Shipping.Delivery.confirm_url2 %}
                                     <br/>
                                     お問い合わせURL(西濃)：{{ Shipping.Delivery.confirm_url2 }}
