@@ -38,7 +38,8 @@ file that was distributed with this source code.
                                 お問い合わせ番号：{{ Shipping.tracking_number }}
                                 {% if Shipping.Delivery.confirm_url %}
                                     <br/>
-                                    お問い合わせURL：{{ Shipping.Delivery.confirm_url }}
+                                    お問い合わせURL(佐川)：{{ Shipping.Delivery.confirm_url }}
+                                    お問い合わせURL(西濃)：{{ Shipping.Delivery.confirm_url2 }}
                                 {% endif %}
                                 <br/>
                             {% endif %}
