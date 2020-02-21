@@ -1115,7 +1115,8 @@ admin.setting.shop.payment.logo_image_size: '推奨サイズ : 500px × 100px'
 admin.setting.shop.delivery.base_info: 基本情報
 admin.setting.shop.delivery.delivery_name: 配送業者名
 admin.setting.shop.delivery.delivery_sevice_name: 配送方法名称
-admin.setting.shop.delivery.tracking_number_url: お問い合わせ番号URL
+admin.setting.shop.delivery.tracking_number_url: お問い合わせ番号URL1
+admin.setting.shop.delivery.tracking_number_url2: お問い合わせ番号URL2
 admin.setting.shop.delivery.sale_type: 販売種別
 admin.setting.shop.delivery.payment_method: 取り扱う支払方法
 admin.setting.shop.delivery.delivery_time_setting: お届け時間設定

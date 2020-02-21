@@ -1116,6 +1116,7 @@ admin.setting.shop.delivery.base_info: General
 admin.setting.shop.delivery.delivery_name: Delivery Company Name
 admin.setting.shop.delivery.delivery_sevice_name: Delivery Method Name
 admin.setting.shop.delivery.tracking_number_url: Tracking URL
+admin.setting.shop.delivery.tracking_number_url2: Tracking URL2
 admin.setting.shop.delivery.sale_type: Sales Type
 admin.setting.shop.delivery.payment_method: Available Payment Methods
 admin.setting.shop.delivery.delivery_time_setting: Delivery Time
