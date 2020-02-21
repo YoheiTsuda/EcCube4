@@ -41,6 +41,11 @@ file that was distributed with this source code.
                                     お問い合わせURL(佐川)：{{ Shipping.Delivery.confirm_url }}
                                 {% endif %}
                                 <br/>
+                                {% if Shipping.Delivery.confirm_url2 %}
+                                    <br/>
+                                    お問い合わせURL(西濃)：{{ Shipping.Delivery.confirm_url2 }}
+                                {% endif %}
+                                <br/>
                             {% endif %}
                             <hr style="border-top: 3px double #8c8b8b;">
                             　ご注文商品明細<br/>
