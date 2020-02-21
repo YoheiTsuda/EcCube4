@@ -38,12 +38,13 @@ file that was distributed with this source code.
                                 お問い合わせ番号：{{ Shipping.tracking_number }}
                                 {% if Shipping.Delivery.confirm_url %}
                                     <br/>
-                                    お問い合わせURL(佐川)：{{ Shipping.Delivery.confirm_url }}
-                                    <br/>{{ Shipping.Delivery.confirm_url }}{{ Shipping.tracking_number }}
+                                    <!-- お問い合わせURL(佐川)：{{ Shipping.Delivery.confirm_url }} -->
+                                    佐川の場合：{{ Shipping.Delivery.confirm_url }}{{ Shipping.tracking_number }}
                                 {% endif %}
                                 {% if Shipping.Delivery.confirm_url2 %}
                                     <br/>
-                                    お問い合わせURL(西濃)：{{ Shipping.Delivery.confirm_url2 }}
+                                    <!-- お問い合わせURL(西濃)：{{ Shipping.Delivery.confirm_url2 }} -->
+                                    西濃の場合：{{ Shipping.Delivery.confirm_url2 }}{{ Shipping.tracking_number }}
                                 {% endif %}
                                 <br/>
                             {% endif %}
