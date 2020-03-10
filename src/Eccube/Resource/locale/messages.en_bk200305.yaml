@@ -936,7 +936,6 @@ admin.content.block_management: Blocks
 admin.content.js_management: JavaScript
 admin.content.cache_management: Caches
 admin.content.maintenance_management: Maintenances
-admin.content.news_sqloutput: SQL Output
 
 # Labels / Messages
 admin.content.file.add_file__card_title: Add File / Directory
