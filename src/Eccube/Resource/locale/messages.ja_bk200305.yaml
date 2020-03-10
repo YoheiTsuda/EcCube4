@@ -936,7 +936,6 @@ admin.content.js_management: JavaScript管理
 admin.content.block_management: ブロック管理
 admin.content.cache_management: キャッシュ管理
 admin.content.maintenance_management: メンテナンス管理
-admin.content.sqloutput_management: SQL出力管理
 
 # ラベル/メッセージ
 admin.content.file.add_file__card_title: ファイル・フォルダを追加
@@ -1035,13 +1034,6 @@ admin.content.maintenance_switch__on: 有効にする
 admin.content.maintenance_switch__off: 無効にする
 admin.content.maintenance_switch__on_message: メンテナンスモードを有効にしました。
 admin.content.maintenance_switch__off_message: メンテナンスモードを無効にしました。
-#------------------------------------------------------------------------------------
-# カスタマイズ部分
-#------------------------------------------------------------------------------------
-#admin.content.output
-
-
-
 
 #------------------------------------------------------------------------------------
 # 設定
@@ -1679,9 +1671,3 @@ purchase_flow.over_stock: 「%name%」の在庫が足りません。
 #------------------------------------------------------------------------------------
 
 command.composer_require_already_installed.not_supported_plugin: %name% %plugin_version% は EC-CUBE %eccube_version% には対応していません。続行しますか？
-
-
-#------------------------------------------------------------------------------------
-# カスタマイズ
-#------------------------------------------------------------------------------------
-admin.store.setting: 認証キー設定
