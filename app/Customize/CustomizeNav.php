@@ -30,7 +30,8 @@ class CustomizeNav implements EccubeNav
                     // 'sampleplugin_my_menu_item' => [
                     'pw_menu_item' => [
                         'name' => 'admin.content.sqloutput_management',
-                        'url' => 'admin_content_sqloutput',
+//                        'url' => 'admin_content_sqloutput',
+                        'url' => 'admin_homepage',
                     ],
                     // 'sampleplugin_my_menu' => [
                     //     'name' => '2階層メニュー（子あり）',
