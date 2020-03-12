@@ -28,13 +28,38 @@ file that was distributed with this source code.
     <div class="c-contentsArea__cols">
         <div class="c-contentsArea__primaryCol">
             <div class="c-primaryCol">
-                <div class="d-block mb-3">
+
+                <!-- <div class="d-block mb-3">
                     <a id="addNew" class="btn btn-ec-regular"
                        href="{{ url('admin_content_news_new') }}">{{ 'admin.common.create__new'|trans }}</a>
-                </div>
+                </div> -->
+
                 <div class="card rounded border-0 mb-4">
-                    <div class="card-body p-0">
-                        <ul class="list-group list-group-flush mb-4 sortable-container">
+                  <div class="card-body p-0">
+
+                <table>
+                  <thead>
+                    <th>{{ 'admin.content.sqloutput.id|trans'|trans }}</th>
+                    <th>{{ 'admin.content.sqloutput.title|trans'|trans }}</th>
+                    <th>{{ 'admin.content.sqloutput.name|trans'|trans }}</th>
+                  </thead>
+
+                  {% for Sqloutput in pagination %}
+                  <tr>
+                    <td>
+                    {{ Sqloutput.id }}
+                    </td>
+                    <td>
+                    {{ Sqloutput.title }}
+                    </td>
+                    <td>
+                    {{ Sqloutput.name }}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </table>
+
+                        <!-- <ul class="list-group list-group-flush mb-4 sortable-container">
                             <li class="list-group-item">
                                 <div class="row justify-content-around">
                                     <div class="col-2"><strong>{{ 'admin.content.news.publish_date'|trans }}</strong>
@@ -103,7 +128,7 @@ file that was distributed with this source code.
                                     </div>
                                 </li>
                             {% endfor %}
-                        </ul>
+                        </ul> -->
 
                         {% if pagination.paginationData.pageCount > 1 %}
                             <div class="row justify-content-md-center mb-4">
