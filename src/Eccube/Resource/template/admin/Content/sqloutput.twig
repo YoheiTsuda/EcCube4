@@ -39,9 +39,9 @@ file that was distributed with this source code.
 
                 <table>
                   <thead>
-                    <th>{{ 'admin.content.news.title'|trans }} / {{ 'admin.content.sqloutput.title'|trans }} </th>
-                    <th>{{ 'admin.content.sqloutput.title|trans'|trans }}</th>
-                    <th>{{ 'admin.content.sqloutput.name|trans'|trans }}</th>
+                    <th>{{ 'admin.content.sqloutput.id'|trans }} </th>
+                    <th>{{ 'admin.content.sqloutput.title'|trans }}</th>
+                    <th>{{ 'admin.content.sqloutput.name'|trans }}</th>
                   </thead>
 
                   {% for Sqloutput in pagination %}
@@ -50,10 +50,10 @@ file that was distributed with this source code.
                     {{ Sqloutput.id }}
                     </td>
                     <td>
-                    {{ Sqloutput.title }}
+                    {{ Sqloutput.id }}
                     </td>
                     <td>
-                    {{ Sqloutput.name }}
+                    {{ Sqloutput.id }}
                     </td>
                   </tr>
                   {% endfor %}
