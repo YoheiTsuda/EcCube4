@@ -53,18 +53,18 @@ class SqloutputController extends AbstractController
      */
     public function index(Request $request)
     {
-        $Output = $this->sqloutputRepository->getPageList();
+        $Outputs = $this->sqloutputRepository->getPageList();
 
         $event = new EventArgs(
             [
-                'Output' => $Output,
+                'Outputs' => $Outputs,
             ],
             $request
         );
         $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
 
         return [
-            'Output' => $Output,
+            'Outputs' => $Outputs,
         ];
     }
     // {
