@@ -71,6 +71,19 @@ class SqloutputRepository extends AbstractRepository
         return $qb;
     }
 
+public function getPageList()
+{
+  $qb = $this->createQueryBuilder('n');
+
+  $pagination = $qb
+  ->getQuery()
+  ->getResult();
+
+  return $pagination;
+}
+
+
+
     /**
      * @return Sqloutput[]|ArrayCollection
      */
