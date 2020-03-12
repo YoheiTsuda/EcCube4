@@ -61,6 +61,11 @@ class SqloutputController extends AbstractController
     public function index(Request $request, $page_no = 1, Paginator $paginator)
     {
         $qb = $this->sqloutputRepository->getQueryBuilderAll();
+        $pagination = $paginator->paginate(
+          $qb,
+          $page_no,
+          100
+        );
 
         $event = new EventArgs(
             [
@@ -70,11 +75,6 @@ class SqloutputController extends AbstractController
         );
         $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
 
-        $pagination = $paginator->paginate(
-            $qb,
-            $page_no,
-            $this->eccubeConfig->get('eccube_default_page_count')
-        );
 
         return [
             'pagination' => $pagination,
