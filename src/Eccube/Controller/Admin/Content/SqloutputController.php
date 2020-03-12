@@ -49,37 +49,40 @@ class SqloutputController extends AbstractController
      * 新着情報一覧を表示する。
      *
      * @Route("/%eccube_admin_route%/content/sqloutput", name="admin_content_sqloutput")
-     * @Route("/%eccube_admin_route%/content/sqloutput/page/{page_no}", requirements={"page_no" = "\d+"}, name="admin_content_sqloutput_page")
      * @Template("@admin/Content/sqloutput.twig")
-     *
-     * @param Request $request
-     * @param int $page_no
-     * @param Paginator $paginator
-     *
-     * @return array
      */
-    public function index(Request $request, $page_no = 1, Paginator $paginator)
+    public function index(Request $request)
     {
-        $qb = $this->sqloutputRepository->getQueryBuilderAll();
-        $pagination = $paginator->paginate(
-          $qb,
-          $page_no,
-          100
-        );
+        $Output = $this->sqloutputRepository->getPageList();
 
         $event = new EventArgs(
             [
-                'qb' => $qb,
+                'Output' => $Output,
             ],
             $request
         );
-        $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
-
+        $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_COMPLETE, $event);
 
         return [
-            'pagination' => $pagination,
+            'Output' => $Output,
         ];
     }
+    // {
+    //     $qb = $this->sqloutputRepository->getPageList();
+    //
+    //     $event = new EventArgs(
+    //         [
+    //             'qb' => $qb,
+    //         ],
+    //         $request
+    //     );
+    //     $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
+    //
+    //
+    //     return [
+    //         'pagination' => $pagination,
+    //     ];
+    // }
 
     /**
      * 新着情報を登録・編集する。

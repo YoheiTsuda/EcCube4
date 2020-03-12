@@ -75,11 +75,11 @@ public function getPageList()
 {
   $qb = $this->createQueryBuilder('n');
 
-  $pagination = $qb
+  $Output = $qb
   ->getQuery()
   ->getResult();
 
-  return $pagination;
+  return $Output;
 }
 
 
