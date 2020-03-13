@@ -14,13 +14,13 @@
 namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
-use Eccube\Entity\News;
-// use Eccube\Entity\Sqloutput;
+// use Eccube\Entity\News;
+use Eccube\Entity\Sqloutput;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\NewsType;
-use Eccube\Repository\NewsRepository;
-// use Eccube\Repository\SqloutputRepository;
+// use Eccube\Repository\NewsRepository;
+use Eccube\Repository\SqloutputRepository;
 use Eccube\Util\CacheUtil;
 use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -33,32 +33,27 @@ class SqloutputController extends AbstractController
     /**
      * @var SqloutputRepository
      */
-    // protected $sqloutputRepository;
+    protected $sqloutputRepository;
 
     /**
-     * @var NewsRepository
+     * SqloutputController constructor.
+     *
+     * @param SqloutputRepository $sqloutputRepository
      */
-    protected $newsRepository;
+    public function __construct(SqloutputRepository $sqloutputRepository)
+    {
+        $this->sqloutputRepository = $sqloutputRepository;
+    }
 
     // /**
-    //  * SqloutputController constructor.
+    //  * NewsController constructor.
     //  *
-    //  * @param SqloutputRepository $sqloutputRepository
+    //  * @param NewsRepository $newsRepository
     //  */
-    // public function __construct(SqloutputRepository $sqloutputRepository)
+    // public function __construct(NewsRepository $newsRepository)
     // {
-    //     $this->sqloutputRepository = $sqloutputRepository;
+    //     $this->newsRepository = $newsRepository;
     // }
-
-    /**
-     * NewsController constructor.
-     *
-     * @param NewsRepository $newsRepository
-     */
-    public function __construct(NewsRepository $newsRepository)
-    {
-        $this->newsRepository = $newsRepository;
-    }
 
     /**
      * 新着情報一覧を表示する。
@@ -68,13 +63,13 @@ class SqloutputController extends AbstractController
      */
     public function index(Request $request)
     {
-        // $Outputs = $this->sqloutputRepository->getPageList();
-        $qb = $this->newsRepository->getQueryBuilderAll();
+        $Outputs = $this->sqloutputRepository->getPageList();
+        // $qb = $this->newsRepository->getQueryBuilderAll();
 
         $event = new EventArgs(
             [
-                // 'Outputs' => $Outputs,
-                'pagination' => $qb,
+                'Outputs' => $Outputs,
+                // 'pagination' => $qb,
             ],
             $request
         );
@@ -82,8 +77,8 @@ class SqloutputController extends AbstractController
         // $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_NEWS_INDEX_INITIALIZE, $event);
 
         return [
-            // 'Outputs' => $Outputs,
-            'pagination' => $qb,
+            'Outputs' => $Outputs,
+            // 'pagination' => $qb,
         ];
     }
     // {

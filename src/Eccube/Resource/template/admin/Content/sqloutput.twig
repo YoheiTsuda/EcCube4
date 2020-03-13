@@ -53,12 +53,13 @@ file that was distributed with this source code.
                 </table>
 
 ここに出力<br/>
-{% for Output in pagination %}
+{% for Output in Outputs %}
 {{ dump(Output) }}
+{{ dump(Outputs) }}
 {{ Output.id }} <br/>
 {% endfor %}
 ここまで出力<br/>
-{{ dump(pagination)}}
+{{ dump(Outputs)}}
 -----
 
                     </div>
