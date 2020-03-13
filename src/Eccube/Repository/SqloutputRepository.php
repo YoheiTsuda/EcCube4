@@ -89,21 +89,21 @@ public function getPageList()
 }
 
 
-
-    /**
-     * @return Sqloutput[]|ArrayCollection
-     */
-    public function getList()
-    {
-        // second level cacheを効かせるためfindByで取得
-        $Results = $this->findBy(['visible' => true], ['publish_date' => 'DESC', 'id' => 'DESC']);
-
-        // 公開日時前のNewsをフィルター
-        $criteria = Criteria::create();
-        $criteria->where(Criteria::expr()->lte('publish_date', new \DateTime()));
-
-        $Sqloutput = new ArrayCollection($Results);
-
-        return $Sqloutput->matching($criteria);
-    }
+    //
+    // /**
+    //  * @return Sqloutput[]|ArrayCollection
+    //  */
+    // public function getList()
+    // {
+    //     // second level cacheを効かせるためfindByで取得
+    //     $Results = $this->findBy(['visible' => true], ['publish_date' => 'DESC', 'id' => 'DESC']);
+    //
+    //     // 公開日時前のNewsをフィルター
+    //     $criteria = Criteria::create();
+    //     $criteria->where(Criteria::expr()->lte('publish_date', new \DateTime()));
+    //
+    //     $Sqloutput = new ArrayCollection($Results);
+    //
+    //     return $Sqloutput->matching($criteria);
+    // }
 }

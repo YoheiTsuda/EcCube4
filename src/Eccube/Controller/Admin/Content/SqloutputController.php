@@ -18,7 +18,7 @@ use Eccube\Controller\AbstractController;
 use Eccube\Entity\Sqloutput;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
-use Eccube\Form\Type\Admin\NewsType;
+// use Eccube\Form\Type\Admin\NewsType;
 // use Eccube\Repository\NewsRepository;
 use Eccube\Repository\SqloutputRepository;
 use Eccube\Util\CacheUtil;

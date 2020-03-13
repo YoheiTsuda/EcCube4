@@ -26,7 +26,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
      * @ORM\Entity(repositoryClass="Eccube\Repository\SqloutputRepository")
      * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      */
-    class Sqloutput extends AbstractEntity
+    class Sqloutput extends \Eccube\Entity\AbstractEntity
     {
         /**
          * @return string
@@ -126,7 +126,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
          *
          * @param \DateTime|null $publishDate
          *
-         * @return Sqloutput
+         * @return $this
          */
         public function setPublishDate($publishDate = null)
         {
@@ -150,7 +150,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
          *
          * @param string $title
          *
-         * @return Sqloutput
+         * @return $this
          */
         public function setTitle($title)
         {
@@ -174,7 +174,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
          *
          * @param string|null $description
          *
-         * @return Sqloutput
+         * @return $this
          */
         public function setDescription($description = null)
         {
@@ -198,7 +198,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
          *
          * @param string|null $url
          *
-         * @return Sqloutput
+         * @return $this
          */
         public function setUrl($url = null)
         {
@@ -222,7 +222,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
          *
          * @param boolean $linkMethod
          *
-         * @return Sqloutput
+         * @return $this
          */
         public function setLinkMethod($linkMethod)
         {
@@ -246,7 +246,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
          *
          * @param \DateTime $createDate
          *
-         * @return Sqloutput
+         * @return $this
          */
         public function setCreateDate($createDate)
         {
@@ -270,7 +270,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
          *
          * @param \DateTime $updateDate
          *
-         * @return Sqloutput
+         * @return $this
          */
         public function setUpdateDate($updateDate)
         {
@@ -300,7 +300,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
         /**
          * @param boolean $visible
          *
-         * @return Sqloutput
+         * @return $this
          */
         public function setVisible($visible)
         {
@@ -314,7 +314,7 @@ if (!class_exists('\Eccube\Entity\Sqloutput')) {
          *
          * @param \Eccube\Entity\Member|null $creator
          *
-         * @return Sqloutput
+         * @return $this
          */
         public function setCreator(\Eccube\Entity\Member $creator = null)
         {
