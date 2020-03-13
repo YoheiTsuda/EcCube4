@@ -69,7 +69,7 @@ class SqloutputController extends AbstractController
     public function index(Request $request)
     {
         // $Outputs = $this->sqloutputRepository->getPageList();
-        $Outputs = $this->newsRepository->getQueryBuilderAll();
+        $qb = $this->newsRepository->getQueryBuilderAll();
 
         $event = new EventArgs(
             [
