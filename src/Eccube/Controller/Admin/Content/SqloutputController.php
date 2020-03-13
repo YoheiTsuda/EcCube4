@@ -79,7 +79,7 @@ class SqloutputController extends AbstractController
 
 $Outputs = array();
 $Outputs = [];
-$Outputs = ["111","bbb","ccc"];
+$Outputs = [5,"bbb","ccc"];
 
         return [
             'Outputs' => $Outputs,
