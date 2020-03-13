@@ -15,12 +15,12 @@ namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
 use Eccube\Entity\News;
-use Eccube\Entity\Sqloutput;
+// use Eccube\Entity\Sqloutput;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
-// use Eccube\Form\Type\Admin\NewsType;
+use Eccube\Form\Type\Admin\NewsType;
 use Eccube\Repository\NewsRepository;
-use Eccube\Repository\SqloutputRepository;
+// use Eccube\Repository\SqloutputRepository;
 use Eccube\Util\CacheUtil;
 use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -33,7 +33,7 @@ class SqloutputController extends AbstractController
     /**
      * @var SqloutputRepository
      */
-    protected $sqloutputRepository;
+    // protected $sqloutputRepository;
 
     /**
      * @var NewsRepository
@@ -78,8 +78,8 @@ class SqloutputController extends AbstractController
             ],
             $request
         );
-        // $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
-        $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_NEWS_INDEX_INITIALIZE, $event);
+        $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
+        // $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_NEWS_INDEX_INITIALIZE, $event);
 
         return [
             // 'Outputs' => $Outputs,
