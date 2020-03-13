@@ -1,0 +1,285 @@
+"id","title","name","visible"
+"1","TestSQL","SELECT id, name, sort_no, discriminator_type FROM mtb_pref WHERE 1=1","1"
+"2","出荷済み（発送済み）受注データ","/* ■1.出荷済み（発送済み）受注データ */
+SELECT
+ o.id AS 'オーダー番号',
+ o.create_date AS '受注日',
+ concat(o.name01,o.name02) AS '注文者名',
+ oi.product_code AS '商品コード',
+ concat(oi.product_name ,ifnull(oi.class_category_name1,'') ,ifnull(oi.class_category_name2,'')) AS '商品名',
+ oi.price AS '税抜単価',
+ oi.quantity AS '数量',
+ oi.tax_rate AS '税率',
+ (oi.price * oi.quantity)+(oi.tax * oi.quantity) AS '小計',
+ o.subtotal AS '受注小計',
+ o.delivery_fee_total AS '送料',
+ o.charge AS '手数料',
+ o.total AS '合計金額',
+ o.tax AS '消費税計',
+ o.payment_total AS '請求金額',
+ o.payment_method AS '決済方法',
+ concat(s.company_name,s.name01,s.name02) AS '宛名',
+ concat(s.kana01,s.kana02) AS '宛名フリガナ',
+ 
+CASE
+ WHEN length(o.phone_number) = 11 THEN /* 11桁だったら */
+  concat(left(o.phone_number,3),""-"",right(left(o.phone_number,7),4),""-"",right(o.phone_number,4))
+
+ WHEN length(o.phone_number) = 10 THEN /* 10桁だったら */
+
+  CASE
+   WHEN /* 0120 0800 0990 0570 THEN XXXX-XXX-XXX */
+    LEFT(o.phone_number,4) = 0120
+    OR LEFT(o.phone_number,4) = 0800
+    OR LEFT(o.phone_number,4) = 0990
+    OR LEFT(o.phone_number,4) = 0570
+    THEN concat(left(o.phone_number,4),""-"",right(left(o.phone_number,6),2),""-"",right(o.phone_number,4))
+   WHEN  /* 03 06 */
+    LEFT(o.phone_number,2) = 03
+    OR LEFT(o.phone_number,2) = 06
+    THEN concat(left(o.phone_number,2),""-"",right(left(o.phone_number,6),4),""-"",right(o.phone_number,4))
+   ELSE
+    concat(left(o.phone_number,3),""-"",right(left(o.phone_number,6),3),""-"",right(o.phone_number,4))
+  END
+
+ ELSE o.phone_number /* それ以外だったら */
+END AS '電話番号',
+
+ concat(left(s.postal_code,3),""-"",right(s.postal_code,4)) AS '配送先郵便番号',
+ concat(p.name,s.addr01,s.addr02) AS '配送先住所',
+ ADDTIME(s.delivery_date,'09:00:00') AS '配送日',
+ ifnull(s.delivery_time,'指定なし') AS '配送時間',
+ s.note AS 'メモ欄'
+ 
+FROM
+ dtb_order AS o
+ LEFT JOIN dtb_order_item oi ON o.id =oi.order_id
+ LEFT JOIN dtb_shipping s ON o.id = s.order_id
+ LEFT JOIN mtb_pref p ON s.pref_id = p.id
+
+WHERE
+ o.order_status_id = 5
+ AND oi.order_item_type_id = 1
+
+ORDER BY
+ o.id","1"
+"3","新規受注(未出荷)受注データ出力","/* ■2.新規受注(未出荷)受注データ出力 */
+SELECT
+ o.id AS 'オーダー番号',
+ o.create_date AS '受注日',
+ concat(o.name01,o.name02) AS '注文者名',
+ oi.product_code AS '商品コード',
+ concat(oi.product_name ,ifnull(oi.class_category_name1,'') ,ifnull(oi.class_category_name2,'')) AS '商品名',
+ oi.price AS '税抜単価',
+ oi.quantity AS '数量',
+ oi.tax_rate AS '税率',
+ (oi.price * oi.quantity)+(oi.tax * oi.quantity) AS '小計',
+ o.subtotal AS '受注小計',
+ o.delivery_fee_total AS '送料',
+ o.charge AS '手数料',
+ o.total AS '合計金額',
+ o.tax AS '消費税計',
+ o.payment_total AS '請求金額',
+ o.payment_method AS '決済方法',
+ concat(s.company_name,s.name01,s.name02) AS '宛名',
+ concat(s.kana01,s.kana02) AS '宛名フリガナ',
+
+CASE
+ WHEN length(o.phone_number) = 11 THEN /* 11桁だったら */
+  concat(left(o.phone_number,3),""-"",right(left(o.phone_number,7),4),""-"",right(o.phone_number,4))
+
+ WHEN length(o.phone_number) = 10 THEN /* 10桁だったら */
+
+  CASE
+   WHEN /* 0120 0800 0990 0570 THEN XXXX-XXX-XXX */
+    LEFT(o.phone_number,4) = 0120
+    OR LEFT(o.phone_number,4) = 0800
+    OR LEFT(o.phone_number,4) = 0990
+    OR LEFT(o.phone_number,4) = 0570
+    THEN concat(left(o.phone_number,4),""-"",right(left(o.phone_number,6),2),""-"",right(o.phone_number,4))
+   WHEN  /* 03 06 */
+    LEFT(o.phone_number,2) = 03
+    OR LEFT(o.phone_number,2) = 06
+    THEN concat(left(o.phone_number,2),""-"",right(left(o.phone_number,6),4),""-"",right(o.phone_number,4))
+   ELSE
+    concat(left(o.phone_number,3),""-"",right(left(o.phone_number,6),3),""-"",right(o.phone_number,4))
+  END
+
+ ELSE o.phone_number /* それ以外だったら */
+END AS '電話番号',
+
+ concat(left(s.postal_code,3),""-"",right(s.postal_code,4)) AS '配送先郵便番号',
+ concat(p.name,s.addr01,s.addr02) AS '配送先住所',
+ ADDTIME(s.delivery_date,'09:00:00') AS '配送日',
+ ifnull(s.delivery_time,'指定なし') AS '配送時間',
+ s.note AS 'メモ欄'
+ 
+FROM
+ dtb_order AS o
+ LEFT JOIN dtb_order_item oi ON o.id =oi.order_id
+ LEFT JOIN dtb_shipping s ON o.id = s.order_id
+ LEFT JOIN mtb_pref p ON s.pref_id = p.id
+
+WHERE
+ o.order_status_id = 1
+ AND oi.order_item_type_id = 1
+
+ORDER BY
+ o.id","1"
+"4","入金待ち受注データ出力","/* ■3.入金待ち受注データ出力 */
+
+SELECT
+ o.id AS 'オーダー番号',
+ o.create_date AS '受注日',
+ concat(o.name01,o.name02) AS '注文者名',
+ oi.product_code AS '商品コード',
+ concat(oi.product_name ,ifnull(oi.class_category_name1,'') ,ifnull(oi.class_category_name2,'')) AS '商品名',
+ oi.price AS '税抜単価',
+ oi.quantity AS '数量',
+ oi.tax_rate AS '税率',
+ (oi.price * oi.quantity)+(oi.tax * oi.quantity) AS '小計',
+ o.subtotal AS '受注小計',
+ o.delivery_fee_total AS '送料',
+ o.charge AS '手数料',
+ o.total AS '合計金額',
+ o.tax AS '消費税計',
+ o.payment_total AS '請求金額',
+ o.payment_method AS '決済方法',
+ concat(s.company_name,s.name01,s.name02) AS '宛名',
+ concat(s.kana01,s.kana02) AS '宛名フリガナ',
+
+CASE
+ WHEN length(o.phone_number) = 11 THEN /* 11桁だったら */
+  concat(left(o.phone_number,3),""-"",right(left(o.phone_number,7),4),""-"",right(o.phone_number,4))
+
+ WHEN length(o.phone_number) = 10 THEN /* 10桁だったら */
+
+  CASE
+   WHEN /* 0120 0800 0990 0570 THEN XXXX-XXX-XXX */
+    LEFT(o.phone_number,4) = 0120
+    OR LEFT(o.phone_number,4) = 0800
+    OR LEFT(o.phone_number,4) = 0990
+    OR LEFT(o.phone_number,4) = 0570
+    THEN concat(left(o.phone_number,4),""-"",right(left(o.phone_number,6),2),""-"",right(o.phone_number,4))
+   WHEN  /* 03 06 */
+    LEFT(o.phone_number,2) = 03
+    OR LEFT(o.phone_number,2) = 06
+    THEN concat(left(o.phone_number,2),""-"",right(left(o.phone_number,6),4),""-"",right(o.phone_number,4))
+   ELSE
+    concat(left(o.phone_number,3),""-"",right(left(o.phone_number,6),3),""-"",right(o.phone_number,4))
+  END
+
+ ELSE o.phone_number /* それ以外だったら */
+END AS '電話番号',
+
+ concat(left(s.postal_code,3),""-"",right(s.postal_code,4)) AS '配送先郵便番号',
+ concat(p.name,s.addr01,s.addr02) AS '配送先住所',
+ s.delivery_date AS '配送日',
+ ifnull(s.delivery_time,'指定なし') AS '配送時間',
+ s.note AS 'メモ欄'
+ 
+FROM
+ dtb_order AS o
+ LEFT JOIN dtb_order_item oi ON o.id =oi.order_id
+ LEFT JOIN dtb_shipping s ON o.id = s.order_id
+ LEFT JOIN mtb_pref p ON s.pref_id = p.id
+
+WHERE
+ o.payment_date is null
+ AND o.order_status_id not in ('3')
+ and oi.order_item_type_id = 1
+
+ORDER BY
+ o.id","1"
+"5","出力項目テスト(全データ・消費税8％)","/* ■4.出力項目テスト(全データ・消費税8％) */
+
+SELECT
+ c.company_name AS '会社名',
+ o.create_date AS '受注日',
+ concat(s.company_name,s.name01,s.name02) AS '宛名',
+ concat(p.name,s.addr01,s.addr02) AS '配送先住所',
+ oi.product_code AS '商品コード',
+ concat(oi.product_name ,ifnull(oi.class_category_name1,'') ,ifnull(oi.class_category_name2,'')) AS '商品名',
+ oi.quantity AS '数量',
+ oi.price AS '税抜単価',
+ oi.price + oi.tax AS '税込単価',
+ o.total AS '合計金額'
+ 
+FROM
+ dtb_order AS o
+ LEFT JOIN dtb_order_item oi ON o.id =oi.order_id
+ LEFT JOIN dtb_shipping s ON o.id = s.order_id
+ LEFT JOIN mtb_pref p ON s.pref_id = p.id
+ LEFT JOIN dtb_customer c ON o.customer_id = c.id
+
+WHERE
+ o.order_status_id = 5
+ and oi.order_item_type_id = 1
+
+ORDER BY
+ o.id","1"
+"6","ワークオン連携データ出力","/* ■5.ワークオン連携データ出力 */
+
+SELECT
+ o.id AS 'No',
+ o.id AS '呼出番号2',
+ DATE_FORMAT(o.create_date, '%Y/%m/%d') AS '入出庫予定日',
+ '' AS '予定時間',
+ DATE_FORMAT(s.shipping_date, '%Y/%m/%d') AS '着日指定',
+ '' AS '着時間指定',
+ '営業部' AS '得意先担当者',
+ '' AS '倉庫担当者',
+ concat(s.company_name,s.name01,s.name02) AS '宛名',
+ '' AS '配送先担当者',
+ concat(left(s.postal_code,3),""-"",right(s.postal_code,4)) AS '配送先郵便番号',
+ concat(p.name,s.addr01,s.addr02) AS '配送先住所',
+ '' AS '配送先住所2',
+CASE
+ WHEN length(s.phone_number) = 11 THEN /* 11桁だったら */
+  concat(left(s.phone_number,3),""-"",right(left(s.phone_number,7),4),""-"",right(s.phone_number,4))
+
+ WHEN length(s.phone_number) = 10 THEN /* 10桁だったら */
+
+  CASE
+   WHEN /* 0120 0800 0990 0570 THEN XXXX-XXX-XXX */
+    LEFT(s.phone_number,4) = 0120
+    OR LEFT(s.phone_number,4) = 0800
+    OR LEFT(s.phone_number,4) = 0990
+    OR LEFT(s.phone_number,4) = 0570
+    THEN concat(left(s.phone_number,4),""-"",right(left(s.phone_number,6),2),""-"",right(s.phone_number,4))
+   WHEN  /* 03 06 */
+    LEFT(s.phone_number,2) = 03
+    OR LEFT(s.phone_number,2) = 06
+    THEN concat(left(s.phone_number,2),""-"",right(left(s.phone_number,6),4),""-"",right(s.phone_number,4))
+   ELSE
+    concat(left(s.phone_number,3),""-"",right(left(s.phone_number,6),3),""-"",right(s.phone_number,4))
+  END
+
+ ELSE s.phone_number /* それ以外だったら */
+END AS '配送先電話',
+ '' AS '配送業者コード',
+ '' AS '配送業者名',
+ o.id AS '注文番号',
+ '' AS '送り状No',
+ '' AS '指定事項',
+ oi.product_code AS '商品コード',
+ concat(oi.product_name ,ifnull(oi.class_category_name1,'') ,ifnull(oi.class_category_name2,'')) AS '商品名',
+ oi.quantity AS '入庫出庫依頼数',
+ '' AS 'ロットNo',
+ o.note AS 'メッセージ',
+ o.company_name AS '会社名'
+ 
+FROM
+ dtb_order AS o
+ LEFT JOIN dtb_order_item oi ON o.id =oi.order_id
+ LEFT JOIN dtb_shipping s ON o.id = s.order_id
+ LEFT JOIN mtb_pref p ON s.pref_id = p.id
+
+WHERE
+ o.order_status_id = 1
+ and oi.order_item_type_id = 1
+
+ORDER BY
+ o.id
+ 
+","1"

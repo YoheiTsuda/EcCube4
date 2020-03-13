@@ -37,6 +37,13 @@ use Doctrine\ORM\Mapping as ORM;
         private $title;
 
         /**
+         * @var boolean
+         *
+         * @ORM\Column(name="visible", type="boolean", options={"default":true})
+         */
+        private $visible;
+
+        /**
          * @return int
          */
         public function getId()
@@ -93,6 +100,27 @@ use Doctrine\ORM\Mapping as ORM;
         public function setName($name)
         {
             $this->name = $name;
+
+            return $this;
+        }
+
+
+        /**
+         * @return integer
+         */
+        public function isVisible()
+        {
+            return $this->visible;
+        }
+
+        /**
+         * @param boolean $visible
+         *
+         * @return $this
+         */
+        public function setVisible($visible)
+        {
+            $this->visible = $visible;
 
             return $this;
         }
