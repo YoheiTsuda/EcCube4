@@ -70,12 +70,6 @@ file that was distributed with this source code.
                 </tbody>
                 </table>
 
-
-                        {% if pagination.paginationData.pageCount > 1 %}
-                            <div class="row justify-content-md-center mb-4">
-                                {% include "@admin/pager.twig" with { 'pages' : pagination.paginationData, 'routes' : 'admin_content_sqloutput_page' } %}
-                            </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>

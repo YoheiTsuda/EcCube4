@@ -48,7 +48,7 @@ class TwigExtension extends \Twig_Extension
     }
 
     /**
-        新着商品を10件返す
+        新着商品を5件返す
         @return Products|null
     **/
     public function getCustomizeNewProduct()
@@ -63,9 +63,9 @@ class TwigExtension extends \Twig_Extension
                 ->getQuery();
             $searchData['orderby'] = $query->getOneOrNullResult();
 
-            // 新着順の商品情報10件取得
+            // 新着順の商品情報5件取得
             $qb = $this->productRepository->getQueryBuilderBySearchData($searchData);
-            $query = $qb->setMaxResults(10)->getQuery();
+            $query = $qb->setMaxResults(5)->getQuery();
             $products = $query->getResult();
             return $products;
 
