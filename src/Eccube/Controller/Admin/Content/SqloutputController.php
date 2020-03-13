@@ -74,7 +74,7 @@ class SqloutputController extends AbstractController
         $event = new EventArgs(
             [
                 // 'Outputs' => $Outputs,
-                'qb' => $qb,
+                'pagination' => $qb,
             ],
             $request
         );
