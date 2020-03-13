@@ -1,25 +1,15 @@
 <?php
 
-/*
- * This file is part of EC-CUBE
- *
- * Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
- *
- * http://www.ec-cube.co.jp/
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Eccube\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\DBAL\Exception\DriverException;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Eccube\Repository\AbstractRepository;
 use Eccube\Entity\Sqloutput;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Eccube\Repository\AbstractRepository;
+
+// use Doctrine\Common\Collections\ArrayCollection;
+// use Doctrine\Common\Collections\Criteria;
+// use Doctrine\DBAL\Exception\DriverException;
+// use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
 
 /**
@@ -73,20 +63,20 @@ class SqloutputRepository extends AbstractRepository
         return $qb;
     }
 
-    /**
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-public function getPageList()
-{
-  $qb = $this->createQueryBuilder('n');
-
-  $Outputs = $qb
-  ->getQuery()
-  ->getResult();
-
-  return $Outputs;
-
-}
+//     /**
+//      * @return \Doctrine\ORM\QueryBuilder
+//      */
+// public function getPageList()
+// {
+//   $qb = $this->createQueryBuilder('n');
+//
+//   $Outputs = $qb
+//   ->getQuery()
+//   ->getResult();
+//
+//   return $Outputs;
+//
+// }
 
 
     //
