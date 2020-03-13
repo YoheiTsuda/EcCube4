@@ -77,9 +77,9 @@ class SqloutputController extends AbstractController
         $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
         // $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_NEWS_INDEX_INITIALIZE, $event);
 
-$Outputs = array();
-$Outputs = [];
-$Outputs = [5,"bbb","ccc"];
+// $Outputs = array();
+// $Outputs = [];
+// $Outputs = [5,"bbb","ccc"];
 
         return [
             'Outputs' => $Outputs,
