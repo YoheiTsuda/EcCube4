@@ -40,15 +40,15 @@ class SqloutputController extends AbstractController
      */
     protected $newsRepository;
 
-    /**
-     * SqloutputController constructor.
-     *
-     * @param SqloutputRepository $sqloutputRepository
-     */
-    public function __construct(SqloutputRepository $sqloutputRepository)
-    {
-        $this->sqloutputRepository = $sqloutputRepository;
-    }
+    // /**
+    //  * SqloutputController constructor.
+    //  *
+    //  * @param SqloutputRepository $sqloutputRepository
+    //  */
+    // public function __construct(SqloutputRepository $sqloutputRepository)
+    // {
+    //     $this->sqloutputRepository = $sqloutputRepository;
+    // }
 
     /**
      * NewsController constructor.
