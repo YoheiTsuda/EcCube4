@@ -54,7 +54,7 @@ file that was distributed with this source code.
                     </td>
                   </tr>
 
-                  {% for Output in Outputs %}
+                  <!-- {% for Output in Outputs %}
                   <tr>
                     <td>
                     {{ Output.id }} / 21
@@ -66,9 +66,13 @@ file that was distributed with this source code.
                     {{ Output.id }} / 23
                     </td>
                   </tr>
-                  {% endfor %}
+                  {% endfor %} -->
                 </tbody>
                 </table>
+
+{% for Output in Outputs %}
+{{ Output.title }} <br/>
+{% endfor %}
 
                     </div>
                 </div>
