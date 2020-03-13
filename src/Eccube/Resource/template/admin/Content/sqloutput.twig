@@ -48,25 +48,24 @@ file that was distributed with this source code.
                   <tr>
                     <td>1
                     </td>
-                    <td>ワーク
+                    <td>ãƒ¯ãƒ¼ã‚¯
                     </td>
                     <td>select * from test
                     </td>
                   </tr>
 
-                  <!-- {% for Output in Outputs %}
-                  <tr>
-                    <td>
-                    {{ Output.id }} / 21
-                    </td>
-                    <td>
-                    {{ Output.id }} / 22
-                    </td>
-                    <td>
-                    {{ Output.id }} / 23
-                    </td>
-                  </tr>
-                  {% endfor %} -->
                 </tbody>
                 </table>
 
+ここに出力<br/>
+{% for Output in Outputs %}
+{{ Output.title }} <br/>
+{% endfor %}
+ここまで出力<br/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
