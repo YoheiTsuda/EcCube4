@@ -67,8 +67,8 @@ class SqloutputRepository extends AbstractRepository
      */
     public function getQueryBuilderAll()
     {
-        $qb = $this->createQueryBuilder('n');
-        $qb->orderBy('n.id', 'DESC');
+        $qb = $this->createQueryBuilder('o');
+        $qb->orderBy('o.id', 'DESC');
 
         return $qb;
     }
