@@ -14,12 +14,12 @@
 namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
-// use Eccube\Entity\News;
+use Eccube\Entity\News;
 use Eccube\Entity\Sqloutput;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 // use Eccube\Form\Type\Admin\NewsType;
-// use Eccube\Repository\NewsRepository;
+use Eccube\Repository\NewsRepository;
 use Eccube\Repository\SqloutputRepository;
 use Eccube\Util\CacheUtil;
 use Knp\Component\Pager\Paginator;
@@ -36,6 +36,11 @@ class SqloutputController extends AbstractController
     protected $sqloutputRepository;
 
     /**
+     * @var NewsRepository
+     */
+    protected $newsRepository;
+
+    /**
      * SqloutputController constructor.
      *
      * @param SqloutputRepository $sqloutputRepository
@@ -46,6 +51,16 @@ class SqloutputController extends AbstractController
     }
 
     /**
+     * NewsController constructor.
+     *
+     * @param NewsRepository $newsRepository
+     */
+    public function __construct(NewsRepository $newsRepository)
+    {
+        $this->newsRepository = $newsRepository;
+    }
+
+    /**
      * 新着情報一覧を表示する。
      *
      * @Route("/%eccube_admin_route%/content/sqloutput", name="admin_content_sqloutput")
@@ -53,18 +68,22 @@ class SqloutputController extends AbstractController
      */
     public function index(Request $request)
     {
-        $Outputs = $this->sqloutputRepository->getPageList();
+        // $Outputs = $this->sqloutputRepository->getPageList();
+        $Outputs = $this->newsRepository->getQueryBuilderAll();
 
         $event = new EventArgs(
             [
-                'Outputs' => $Outputs,
+                // 'Outputs' => $Outputs,
+                'qb' => $qb,
             ],
             $request
         );
-        $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
+        // $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
+        $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_NEWS_INDEX_INITIALIZE, $event);
 
         return [
-            'Outputs' => $Outputs,
+            // 'Outputs' => $Outputs,
+            'pagination' => $qb,
         ];
     }
     // {
