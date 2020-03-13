@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
      * @ORM\Entity(repositoryClass="Eccube\Repository\SqloutputRepository")
      */
     // class Sqloutput extends \Eccube\Entity\AbstractEntity
-    class Sqloutput
+    class Sqloutput extends \Eccube\Entity\AbstractEntity
     {
         /**
          * @var int
