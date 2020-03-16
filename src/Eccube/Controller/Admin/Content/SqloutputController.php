@@ -142,68 +142,84 @@ class SqloutputController extends AbstractController
         $em = $this->entityManager;
         $em->getConfiguration()->setSQLLogger(null);
 
-        $response = new StreamedResponse();
-        $response->setCallback(function () use ($request) {
-            // CSV種別を元に初期化.
-            // $this->csvExportService->initCsvType($csvTypeId);
 
-            // ヘッダ行の出力.
-            $this->csvExportService->exportHeader();
+        $ary = array(
+          array("名前","年齢","血液型"),
+          array("太郎","21","O")
+        );
+        $f = fopen( "test.csv",w);
+        if ( $f ) {
+          foreach($ary as $line){
+            fputcsv($f , $line);
 
-            // 受注データ検索用のクエリビルダを取得.
-            $qb = $this->csvExportService
-                ->getOrderQueryBuilder($request);
+          }
+        }
+        fclose($f);
 
-            // データ行の出力.
-            $this->csvExportService->setExportQueryBuilder($qb);
-            $this->csvExportService->exportData(function ($entity, $csvService) use ($request) {
-                $Csvs = $csvService->getCsvs();
 
-                $Order = $entity;
-                $OrderItems = $Order->getOrderItems();
 
-                foreach ($OrderItems as $OrderItem) {
-                    $ExportCsvRow = new ExportCsvRow();
-
-                    // CSV出力項目と合致するデータを取得.
-                    foreach ($Csvs as $Csv) {
-                        // 受注データを検索.
-                        $ExportCsvRow->setData($csvService->getData($Csv, $Order));
-                        if ($ExportCsvRow->isDataNull()) {
-                            // 受注データにない場合は, 受注明細を検索.
-                            $ExportCsvRow->setData($csvService->getData($Csv, $OrderItem));
-                        }
-                        if ($ExportCsvRow->isDataNull() && $Shipping = $OrderItem->getShipping()) {
-                            // 受注明細データにない場合は, 出荷を検索.
-                            $ExportCsvRow->setData($csvService->getData($Csv, $Shipping));
-                        }
-
-                        $event = new EventArgs(
-                            [
-                                'csvService' => $csvService,
-                                'Csv' => $Csv,
-                                'OrderItem' => $OrderItem,
-                                'ExportCsvRow' => $ExportCsvRow,
-                            ],
-                            $request
-                        );
-                        $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_ORDER_CSV_EXPORT_ORDER, $event);
-
-                        $ExportCsvRow->pushData();
-                    }
-
-                    //$row[] = number_format(memory_get_usage(true));
-                    // 出力.
-                    $csvService->fputcsv($ExportCsvRow->getRow());
-                }
-            });
-        });
-
-        $response->headers->set('Content-Type', 'application/octet-stream');
-        $response->headers->set('Content-Disposition', 'attachment; filename='.$fileName);
-        $response->send();
-
-        return $response;
+        // $response = new StreamedResponse();
+        // $response->setCallback(function () use ($request) {
+        //     // CSV種別を元に初期化.
+        //     // $this->csvExportService->initCsvType($csvTypeId);
+        //
+        //     // ヘッダ行の出力.
+        //     $this->csvExportService->exportHeader();
+        //
+        //     // 受注データ検索用のクエリビルダを取得.
+        //     $qb = $this->csvExportService
+        //         ->getOrderQueryBuilder($request);
+        //
+        //     // データ行の出力.
+        //     $this->csvExportService->setExportQueryBuilder($qb);
+        //     $this->csvExportService->exportData(function ($entity, $csvService) use ($request) {
+        //         $Csvs = $csvService->getCsvs();
+        //
+        //         $Order = $entity;
+        //         $OrderItems = $Order->getOrderItems();
+        //
+        //         foreach ($OrderItems as $OrderItem) {
+        //             $ExportCsvRow = new ExportCsvRow();
+        //
+        //             // CSV出力項目と合致するデータを取得.
+        //             foreach ($Csvs as $Csv) {
+        //                 // 受注データを検索.
+        //                 $ExportCsvRow->setData($csvService->getData($Csv, $Order));
+        //                 if ($ExportCsvRow->isDataNull()) {
+        //                     // 受注データにない場合は, 受注明細を検索.
+        //                     $ExportCsvRow->setData($csvService->getData($Csv, $OrderItem));
+        //                 }
+        //                 if ($ExportCsvRow->isDataNull() && $Shipping = $OrderItem->getShipping()) {
+        //                     // 受注明細データにない場合は, 出荷を検索.
+        //                     $ExportCsvRow->setData($csvService->getData($Csv, $Shipping));
+        //                 }
+        //
+        //                 $event = new EventArgs(
+        //                     [
+        //                         'csvService' => $csvService,
+        //                         'Csv' => $Csv,
+        //                         'OrderItem' => $OrderItem,
+        //                         'ExportCsvRow' => $ExportCsvRow,
+        //                     ],
+        //                     $request
+        //                 );
+        //                 $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_ORDER_CSV_EXPORT_ORDER, $event);
+        //
+        //                 $ExportCsvRow->pushData();
+        //             }
+        //
+        //             //$row[] = number_format(memory_get_usage(true));
+        //             // 出力.
+        //             $csvService->fputcsv($ExportCsvRow->getRow());
+        //         }
+        //     });
+        // });
+        //
+        // $response->headers->set('Content-Type', 'application/octet-stream');
+        // $response->headers->set('Content-Disposition', 'attachment; filename='.$fileName);
+        // $response->send();
+        //
+        // return $response;
     }
 
 
