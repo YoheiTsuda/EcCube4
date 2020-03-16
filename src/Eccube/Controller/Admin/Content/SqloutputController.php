@@ -129,8 +129,8 @@ class SqloutputController extends AbstractController
      * @return StreamedResponse
      * @Route("/%eccube_admin_route%/content/sqloutput/{id}", requirements={"id" = "\d+"}, name="admin_content_sqloutput_export")
      */
-    public function exportCsv()
-    // public function exportCsv(Request $request)
+    // public function exportCsv()
+    public function exportCsv(Request $request)
     {
 // ★　通常のCSV出力ボタン
         // タイムアウトを無効にする.
@@ -140,20 +140,25 @@ class SqloutputController extends AbstractController
         $em = $this->entityManager;
         $em->getConfiguration()->setSQLLogger(null);
 
-
         $ary = array(
           array("名前","年齢","血液型"),
           array("太郎","21","O")
         );
+
         $f = fopen( "test.csv","w");
         if ( $f ) {
           foreach($ary as $line){
             fputcsv($f , $line);
 
           }
+          fclose($f);
         }
-        fclose($f);
 
+        // header('Content-Type: text/csv; charset=utf-8');
+        // header('Content-Disposition: attachment; filename="FooBarFileName_' . date('Ymd') . '.csv"');
+        // header("Pragma: no-cache");
+        // header("Expires: 0");
+        // $this->outputCSV($results);
 
 
         // $response = new StreamedResponse();
