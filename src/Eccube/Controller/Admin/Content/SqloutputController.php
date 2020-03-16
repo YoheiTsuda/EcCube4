@@ -131,7 +131,7 @@ class SqloutputController extends AbstractController
      * @return StreamedResponse
      * @Route("/%eccube_admin_route%/content/sqloutput/{id}", requirements={"id" = "\d+"}, name="admin_content_sqloutput_export", methods={"POST", "GET"})
      */
-     */
+
     protected function exportCsv(Request $request, $csvTypeId, $fileName)
     {
         // タイムアウトを無効にする.
