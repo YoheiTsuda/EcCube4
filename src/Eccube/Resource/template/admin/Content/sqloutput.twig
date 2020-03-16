@@ -32,32 +32,38 @@ file that was distributed with this source code.
                 <div class="card rounded border-0 mb-4">
                   <div class="card-body p-0">
 
-                <table>
+                <table class="table table-sm table-hover">
                   <thead>
-                    <th>{{ 'admin.content.sqloutput.id'|trans }} </th>
-                    <th>{{ 'admin.content.sqloutput.title'|trans }}</th>
-                    <th>{{ 'admin.content.sqloutput.name'|trans }}</th>
+                    <tr>
+                      <th class="border-0 p-2">{{ 'admin.content.sqloutput.id'|trans }} </th>
+                      <th class="border-0 p-2">{{ 'admin.content.sqloutput.title'|trans }}</th>
+                    </tr>
+                    <tr>
+                      <th colspan="2" class="border-0 p-2">{{ 'admin.content.sqloutput.name'|trans }}</th>
+                    </tr>
                   </thead>
 
                   <tbody>
+
+                  {% for Output in Outputs %}
+
                   <tr>
-                    <td>1
+                    <td>{{ Output.id }}
                     </td>
-                    <td>タイトル
+                    <td>{{ Output.title }}
                     </td>
-                    <td>select * from test
+                  </tr>
+                  <tr>
+                    <td colspan="2" font-size="small"><a class="list-group-item list-group-item-action" href="{{ url('admin_content_sqloutput_export', { id : Output.id }) }}">
+                      <i class="fa fa-download fa-lg text-secondary" aria-hidden="true"></i>{{ Output.name }}
                     </td>
                   </tr>
 
+                  {% endfor %}
+
                 </tbody>
                 </table>
-ここに出力<br/>
-{% for Output in Outputs %}
-{{ Output.title }} <br/>
-{% endfor %}
-ここまで出力<br/>
 {{ dump() }}
------
 
                     </div>
                 </div>

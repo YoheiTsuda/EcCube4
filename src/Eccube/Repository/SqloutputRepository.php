@@ -25,58 +25,30 @@ class SqloutputRepository extends AbstractRepository
         parent::__construct($registry, Sqloutput::class);
     }
 
-    // /**
-    //  * 新着情報を登録します.
-    //  *
-    //  * @param $Sqloutput
-    //  */
-    // public function save($Sqloutput)
-    // {
-    //     $em = $this->getEntityManager();
-    //     $em->persist($Sqloutput);
-    //     $em->flush($Sqloutput);
-    // }
-
-    // /**
-    //  * 新着情報を削除します.
-    //  *
-    //  * @param Sqloutput $Sqloutput
-    //  *
-    //  * @throws ForeignKeyConstraintViolationException 外部キー制約違反の場合
-    //  * @throws DriverException SQLiteの場合, 外部キー制約違反が発生すると, DriverExceptionをthrowします.
-    //  */
-    // public function delete($Sqloutput)
-    // {
-    //     $em = $this->getEntityManager();
-    //     $em->remove($Sqloutput);
-    //     $em->flush($Sqloutput);
-    // }
-
     /**
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getQueryBuilderAll()
     {
-        $qb = $this->createQueryBuilder('o');
-        // $qb->orderBy('o.id', 'DESC');
+        $qb = $this->createQueryBuilder('s');
+        // $qb->orderBy('s.id', 'DESC');
 
         return $qb;
     }
 
 //     /**
 //      * @return \Doctrine\ORM\QueryBuilder
-//      */
-// public function getPageList()
-// {
-//   $qb = $this->createQueryBuilder('n');
-//
-//   $Outputs = $qb
-//   ->getQuery()
-//   ->getResult();
-//
-//   return $Outputs;
-//
-// }
+     // */
+public function getPageList()
+{
+  $qb = $this->createQueryBuilder('s');
+
+  // $qb->getQuery();
+  // ->getResult();
+
+  return $qb;
+
+}
 
 
     //

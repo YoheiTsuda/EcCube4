@@ -23,18 +23,18 @@ use Doctrine\ORM\Mapping as ORM;
         private $id;
 
         /**
-         * @var text
-         *
-         * @ORM\Column(name="name", type="text")
-         */
-        private $name;
+        * @var text
+        *
+        * @ORM\Column(name="title", type="text")
+        */
+        private $title;
 
         /**
-         * @var text
+         * @var string
          *
-         * @ORM\Column(name="title", type="text")
+         * @ORM\Column(name="name", type="text",)
          */
-        private $title;
+        private $name;
 
         /**
          * @var boolean
