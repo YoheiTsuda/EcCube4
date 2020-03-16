@@ -129,11 +129,12 @@ class SqloutputController extends AbstractController
      * @param string $fileName
      *
      * @return StreamedResponse
-     * @Route("/%eccube_admin_route%/content/sqloutput/{id}", requirements={"id" = "\d+"}, name="admin_content_sqloutput_export", methods={"POST", "GET"})
+     * @Route("/%eccube_admin_route%/content/sqloutput/{id}", requirements={"id" = "\d+"}, name="admin_content_sqloutput_export")
      */
 
-    protected function exportCsv(Request $request, $csvTypeId, $fileName)
+    protected function exportCsv(Request $request)
     {
+// ★　通常のCSV出力ボタン
         // タイムアウトを無効にする.
         set_time_limit(0);
 
@@ -142,9 +143,9 @@ class SqloutputController extends AbstractController
         $em->getConfiguration()->setSQLLogger(null);
 
         $response = new StreamedResponse();
-        $response->setCallback(function () use ($request, $csvTypeId) {
+        $response->setCallback(function () use ($request) {
             // CSV種別を元に初期化.
-            $this->csvExportService->initCsvType($csvTypeId);
+            // $this->csvExportService->initCsvType($csvTypeId);
 
             // ヘッダ行の出力.
             $this->csvExportService->exportHeader();
@@ -207,182 +208,59 @@ class SqloutputController extends AbstractController
 
 
 
-    /**
-     * @Route("/%eccube_admin_route%/content/sqloutput/{id}", requirements={"id" = "\d+"}, name="admin_content_sqloutput_export", methods={"POST", "GET"})
-     */
-    public function export(Request $request)
-    {
-        $Csv = $this->sqloutputRepository->findBy(['id' => $request->get('id')]);
-
-        if (empty($Csv[0])) {
-            // error
-            $this->addDanger('データがありません。', 'admin');
-            return $this->redirectToRoute('admin_content_sqloutput');
-        }
-
-        try {
-            $conn = $this->get('database_connection');
-            $stmt = $conn->prepare($Csv[0]->getName());
-            $stmt->execute();
-            // header
-            $result = $stmt->fetch();
-
-            foreach($result as $key => $value)
-            {
-                $meta[] = $key;
-            }
-
-            $config = new ExporterConfig();
-            $config
-                //->setDelimiter("\t") // Customize delimiter. Default value is comma(,)
-                //->setEnclosure("'")  // Customize enclosure. Default value is double quotation(")
-                //->setEscape("\\")    // Customize escape character. Default value is backslash(\)
-                ->setToCharset('SJIS-win') // Customize file encoding. Default value is null, no converting.
-                ->setFromCharset('UTF-8') // Customize source encoding. Default value is null.
-                ->setFileMode(CsvFileObject::FILE_MODE_WRITE) // Customize file mode and choose either write or append. Default value is write ('w'). See fopen() php docs
-                ->setColumnHeaders($meta)
-            ;
-
-            $response = new StreamedResponse();
-            $response->setStatusCode(200);
-            $response->headers->set('Content-Type', 'text/csv');
-            $response->headers->set('Content-Disposition', 'attachment; filename=export.csv');
-            $response->setCallback(function() use($stmt, $config) {
-                $exporter = new Exporter($config);
-
-                $exporter->export('php://output', new PdoCollection($stmt->getIterator()));
-            });
-            $response->send();
-            return $response;
-
-        } catch (\Exception $e) {
-            $this->addDanger($e->getMessage(), 'admin');
-            return $this->redirectToRoute('admin_content_sqloutput');
-        }
-    }
-
-
-
-    // {
-    //     $qb = $this->sqloutputRepository->getPageList();
-    //
-    //     $event = new EventArgs(
-    //         [
-    //             'qb' => $qb,
-    //         ],
-    //         $request
-    //     );
-    //     $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE, $event);
-    //
-    //
-    //     return [
-    //         'pagination' => $pagination,
-    //     ];
-    // }
-
     // /**
-    //  * 新着情報を登録・編集する。
-    //  *
-    //  * @Route("/%eccube_admin_route%/content/sqloutput/new", name="admin_content_sqloutput_new")
-    //  * @Route("/%eccube_admin_route%/content/sqloutput/{id}/edit", requirements={"id" = "\d+"}, name="admin_content_sqloutput_edit")
-    //  * @Template("@admin/Content/sqloutput_edit.twig")
-    //  *
-    //  * @param Request $request
-    //  * @param null $id
-    //  *
-    //  * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+    //  * @Route("/%eccube_admin_route%/content/sqloutput/{id}", requirements={"id" = "\d+"}, name="admin_content_sqloutput_export", methods={"POST", "GET"})
     //  */
-    // public function edit(Request $request, $id = null, CacheUtil $cacheUtil)
+    // public function export(Request $request)
     // {
-    //     if ($id) {
-    //         $Sqloutput = $this->sqloutputRepository->find($id);
-    //         if (!$Sqloutput) {
-    //             throw new NotFoundHttpException();
-    //         }
-    //     } else {
-    //         $Sqloutput = new \Eccube\Entity\Sqloutput();
-    //         $Sqloutput->setPublishDate(new \DateTime());
+    //   // ★　CSV4のプラグインでのCSV出力ボタン、Goodbyを使ってる
+    //     $Csv = $this->sqloutputRepository->findBy(['id' => $request->get('id')]);
+    //
+    //     if (empty($Csv[0])) {
+    //         // error
+    //         $this->addDanger('データがありません。', 'admin');
+    //         return $this->redirectToRoute('admin_content_sqloutput');
     //     }
-    //
-    //     $builder = $this->formFactory
-    //         ->createBuilder(SqloutputType::class, $Sqloutput);
-    //
-    //     $event = new EventArgs(
-    //         [
-    //             'builder' => $builder,
-    //             'Sqloutput' => $Sqloutput,
-    //         ],
-    //         $request
-    //     );
-    //     $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_EDIT_INITIALIZE, $event);
-    //
-    //     $form = $builder->getForm();
-    //     $form->handleRequest($request);
-    //
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         if (!$Sqloutput->getUrl()) {
-    //             $Sqloutput->setLinkMethod(false);
-    //         }
-    //         $this->sqloutputRepository->save($Sqloutput);
-    //
-    //         $event = new EventArgs(
-    //             [
-    //                 'form' => $form,
-    //                 'Sqloutput' => $Sqloutput,
-    //             ],
-    //             $request
-    //         );
-    //         $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_EDIT_COMPLETE, $event);
-    //
-    //         $this->addSuccess('admin.common.save_complete', 'admin');
-    //
-    //         // キャッシュの削除
-    //         $cacheUtil->clearDoctrineCache();
-    //
-    //         return $this->redirectToRoute('admin_content_sqloutput_edit', ['id' => $Sqloutput->getId()]);
-    //     }
-    //
-    //     return [
-    //         'form' => $form->createView(),
-    //         'Sqloutput' => $Sqloutput,
-    //     ];
-    // }
-
-    // /**
-    //  * 指定した新着情報を削除する。
-    //  *
-    //  * @Route("/%eccube_admin_route%/content/sqloutput/{id}/delete", requirements={"id" = "\d+"}, name="admin_content_sqloutput_delete", methods={"DELETE"})
-    //  *
-    //  * @param Request $request
-    //  * @param Sqloutput $Sqloutput
-    //  *
-    //  * @return \Symfony\Component\HttpFoundation\RedirectResponse
-    //  */
-    // public function delete(Request $request, Sqloutput $Sqloutput, CacheUtil $cacheUtil)
-    // {
-    //     $this->isTokenValid();
-    //
-    //     log_info('新着情報削除開始', [$Sqloutput->getId()]);
     //
     //     try {
-    //         $this->sqloutputRepository->delete($Sqloutput);
+    //         $conn = $this->get('database_connection');
+    //         $stmt = $conn->prepare($Csv[0]->getName());
+    //         $stmt->execute();
+    //         // header
+    //         $result = $stmt->fetch();
     //
-    //         $event = new EventArgs(['Sqloutput' => $Sqloutput], $request);
-    //         $this->eventDispatcher->dispatch(EccubeEvents::ADMIN_CONTENT_SQLOUTPUT_DELETE_COMPLETE, $event);
+    //         foreach($result as $key => $value)
+    //         {
+    //             $meta[] = $key;
+    //         }
     //
-    //         $this->addSuccess('admin.common.delete_complete', 'admin');
+    //         $config = new ExporterConfig();
+    //         $config
+    //             //->setDelimiter("\t") // Customize delimiter. Default value is comma(,)
+    //             //->setEnclosure("'")  // Customize enclosure. Default value is double quotation(")
+    //             //->setEscape("\\")    // Customize escape character. Default value is backslash(\)
+    //             ->setToCharset('SJIS-win') // Customize file encoding. Default value is null, no converting.
+    //             ->setFromCharset('UTF-8') // Customize source encoding. Default value is null.
+    //             ->setFileMode(CsvFileObject::FILE_MODE_WRITE) // Customize file mode and choose either write or append. Default value is write ('w'). See fopen() php docs
+    //             ->setColumnHeaders($meta)
+    //         ;
     //
-    //         log_info('新着情報削除完了', [$Sqloutput->getId()]);
+    //         $response = new StreamedResponse();
+    //         $response->setStatusCode(200);
+    //         $response->headers->set('Content-Type', 'text/csv');
+    //         $response->headers->set('Content-Disposition', 'attachment; filename=export.csv');
+    //         $response->setCallback(function() use($stmt, $config) {
+    //             $exporter = new Exporter($config);
     //
-    //         // キャッシュの削除
-    //         $cacheUtil->clearDoctrineCache();
+    //             $exporter->export('php://output', new PdoCollection($stmt->getIterator()));
+    //         });
+    //         $response->send();
+    //         return $response;
+    //
     //     } catch (\Exception $e) {
-    //         $message = trans('admin.common.delete_error_foreign_key', ['%name%' => $Sqloutput->getTitle()]);
-    //         $this->addError($message, 'admin');
-    //
-    //         log_error('新着情報削除エラー', [$Sqloutput->getId(), $e]);
+    //         $this->addDanger($e->getMessage(), 'admin');
+    //         return $this->redirectToRoute('admin_content_sqloutput');
     //     }
-    //
-    //     return $this->redirectToRoute('admin_content_sqloutput');
     // }
+
 }
