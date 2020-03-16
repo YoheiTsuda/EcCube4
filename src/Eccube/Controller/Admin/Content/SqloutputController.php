@@ -144,7 +144,7 @@ class SqloutputController extends AbstractController
           array("名前","年齢","血液型"),
           array("太郎","21","O")
         );
-        $f = fopen( "test.csv",w);
+        $f = fopen( "test.csv","w");
         if ( $f ) {
           foreach($ary as $line){
             fputcsv($f , $line);
