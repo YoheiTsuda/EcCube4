@@ -1,0 +1,67 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% extends '@admin/default_frame.twig' %}
+
+{% set menus = ['pw_root_menu', 'pw_menu_item'] %}
+
+
+{% block title %}{{ 'admin.content.sqloutput_management'|trans }}{% endblock %}
+{% block sub_title %}{{ 'admin.content.contents_management'|trans }}{% endblock %}
+
+{% block stylesheet %}
+    <style type="text/css">
+        li.list-group-item {
+            z-index: inherit !important;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="c-contentsArea__cols">
+        <div class="c-contentsArea__primaryCol">
+            <div class="c-primaryCol">
+
+                <div class="card rounded border-0 mb-4">
+                  <div class="card-body p-0">
+
+                <table class="table table-sm table-hover">
+                  <thead>
+                    <tr>
+                      <th class="border-0 p-2">{{ 'admin.content.sqloutput.id'|trans }} </th>
+                      <th class="border-0 p-2">{{ 'admin.content.sqloutput.title'|trans }} / {{ 'admin.content.sqloutput.name'|trans }}</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+
+                  {% for Output in Outputs %}
+
+                  <tr>
+                    <td>{{ Output.id }}
+                    </td>
+                    <td>{{ Output.title }}<br/>
+                    <a class="list-group-item list-group-item-action" href="{{ url('admin_content_sqloutput_export', { id : Output.id }) }}">
+                      <i class="fa fa-download fa-lg text-secondary" aria-hidden="true"></i>{{ Output.name }}
+                    </td>
+                  </tr>
+
+                  {% endfor %}
+
+                </tbody>
+                </table>
+{{ dump() }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

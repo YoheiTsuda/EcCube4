@@ -1039,6 +1039,10 @@ admin.content.maintenance_switch__off_message: Maintenance mode has been disable
 #------------------------------------------------------------------------------------
 # Settings
 #------------------------------------------------------------------------------------
+#admin.content.sqloutput
+admin.content.sqloutput.id: No
+admin.content.sqloutput.title: Title
+admin.content.sqloutput.name: SQL
 
 # Menu Items
 admin.setting: Settings

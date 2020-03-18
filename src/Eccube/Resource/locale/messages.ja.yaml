@@ -1038,9 +1038,10 @@ admin.content.maintenance_switch__off_message: メンテナンスモードを無
 #------------------------------------------------------------------------------------
 # カスタマイズ部分
 #------------------------------------------------------------------------------------
-#admin.content.output
-
-
+#admin.content.sqloutput
+admin.content.sqloutput.id: No
+admin.content.sqloutput.title: タイトル
+admin.content.sqloutput.name: SQL文
 
 
 #------------------------------------------------------------------------------------
