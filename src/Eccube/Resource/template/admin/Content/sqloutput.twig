@@ -36,10 +36,7 @@ file that was distributed with this source code.
                   <thead>
                     <tr>
                       <th class="border-0 p-2">{{ 'admin.content.sqloutput.id'|trans }} </th>
-                      <th class="border-0 p-2">{{ 'admin.content.sqloutput.title'|trans }}</th>
-                    </tr>
-                    <tr>
-                      <th colspan="2" class="border-0 p-2">{{ 'admin.content.sqloutput.name'|trans }}</th>
+                      <th class="border-0 p-2">{{ 'admin.content.sqloutput.title'|trans }} / {{ 'admin.content.sqloutput.name'|trans }}</th>
                     </tr>
                   </thead>
 
@@ -50,11 +47,8 @@ file that was distributed with this source code.
                   <tr>
                     <td>{{ Output.id }}
                     </td>
-                    <td>{{ Output.title }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="2" font-size="small"><a class="list-group-item list-group-item-action" href="{{ url('admin_content_sqloutput_export', { id : Output.id }) }}">
+                    <td>{{ Output.title }}<br/>
+                    <a class="list-group-item list-group-item-action" href="{{ url('admin_content_sqloutput_export', { id : Output.id }) }}">
                       <i class="fa fa-download fa-lg text-secondary" aria-hidden="true"></i>{{ Output.name }}
                     </td>
                   </tr>
