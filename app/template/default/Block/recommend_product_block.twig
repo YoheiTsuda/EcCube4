@@ -8,6 +8,14 @@
 #}
 {% set recommend_products = repository('Plugin\\Recommend4\\Entity\\RecommendProduct').getRecommendProduct %}
 
+<div class="ec-topicRole">
+    <div class="ec-role">
+        <div class="ec-secHeading">
+            <span class="ec-secHeading__en">{{ 'RECOMMEND'|trans }}</span>
+            <span class="ec-secHeading__line"></span>
+            <span class="ec-secHeading__ja">{{ 'おすすめ商品'|trans }}</span>
+        </div>
+
 <!-- ▼item_list▼ -->
 <div class="ec-shelfRole">
     <ul class="ec-shelfGrid">
@@ -36,3 +44,5 @@
     </ul>
 </div>
 <!-- ▲item_list▲ -->
+</div>
+</div>
