@@ -5806,7 +5806,8 @@ Styleguide 12.6.1
     .ec-newItemRole .ec-newItemRole__listItem:nth-child(odd) {
       margin-right: 4%; }
   .ec-newItemRole .ec-newItemRole__listItemHeading {
-    margin-top: calc(45% - 20px); }
+    margin-top: 20px; }
+    /* margin-top: calc(45% - 20px); } */
   .ec-newItemRole .ec-newItemRole__listItemTitle {
     margin: 8px 0;
     font-size: 14px;

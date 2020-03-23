@@ -156,8 +156,8 @@ class ProductRepository extends AbstractRepository
             foreach ($keywords as $index => $keyword) {
                 $key = sprintf('keyword%s', $index);
                 $qb
-                    ->andWhere(sprintf('NORMALIZE(p.name) LIKE NORMALIZE(:%s) OR 
-                        NORMALIZE(p.search_word) LIKE NORMALIZE(:%s) OR 
+                    ->andWhere(sprintf('NORMALIZE(p.name) LIKE NORMALIZE(:%s) OR
+                        NORMALIZE(p.search_word) LIKE NORMALIZE(:%s) OR
                         EXISTS (SELECT wpc%d FROM \Eccube\Entity\ProductClass wpc%d WHERE p = wpc%d.Product AND NORMALIZE(wpc%d.code) LIKE NORMALIZE(:%s))',
                         $key, $key, $index, $index, $index, $index, $key))
                     ->setParameter($key, '%'.$keyword.'%');
@@ -204,6 +204,27 @@ class ProductRepository extends AbstractRepository
         }
 
         return $this->queries->customize(QueryKey::PRODUCT_SEARCH, $qb, $searchData);
+    }
+
+    /**
+     * get query builder.
+     *
+     * @param  array $searchData
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilderBySearchDataForNew($searchData)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->innerJoin('p.ProductClasses', 'pc');
+        $qb->innerJoin('p.ProductCategories', 'pct');
+        $qb->Where('p.Status = 1');
+        $qb->andWhere('pc.visible = true');
+        $qb->andWhere('pct.category_id = 2'); //新入荷のカテゴリーID
+        $qb->orderBy('p.create_date', 'DESC');
+        $qb->addOrderBy('p.id', 'DESC');
+
+        return $this->queries->customize(QueryKey::PRODUCT_SEARCH_NEW, $qb, $searchData);
     }
 
     /**

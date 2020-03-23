@@ -11,7 +11,7 @@
     <div class="ec-newItemRole">
 
     	<div class="ec-secHeading">
-      {{ dump() }}
+      <!-- {{ dump() }} -->
             <span class="ec-secHeading__en">NEW Goods</span>
             <span class="ec-secHeading__line"></span>
             <span class="ec-secHeading__ja">新入荷商品</span>
@@ -41,8 +41,9 @@
 
         </div><!-- .ec-newItemRole__listItem end -->
 
-        <div clas="ec-newItemRole__listItemHeading ec-secHeading--tandem">
+        <div class="ec-newItemRole__listItemHeading ec-secHeading--tandem">
         	<a class="ec-inlineBtn--top" href="{{ url('product_list') }}?orderby={{eccube_config.eccube_product_order_newer}}">&raquo; 全商品一覧はこちら</a>
+        	<a class="ec-inlineBtn--top" href="{{ url('product_list') }}?category_id=2">&raquo; 新商品はこちら</a>
         </div>
 
     </div><!-- .ec-newItemRole end -->

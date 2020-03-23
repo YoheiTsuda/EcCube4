@@ -62,19 +62,18 @@ class TwigExtension extends \Twig_Extension
                 ->setParameter('id', $this->eccubeConfig['eccube_product_order_newer'])
                 ->getQuery();
 
-                // $order = $query->getOneOrNullResult();
-                // $searchData['orderby'] = $order;
-                $searchData = [
-                  'orderby' => '2',
-                  'category_id' => '2'
-                ];
+                $order = $query->getOneOrNullResult();
+                $searchData['orderby'] = $order;
+                // $array_merge($searchData['category_id'], '2');
+                //   'category_id' => '2'
+                // ];
 
             // $searchData['orderby'] = $query->getOneOrNullResult();
             // array_p$searchData['category_id'] = '2';
             // $searchData['category_id'] -> "2";
 
             // 新着順の商品情報5件取得
-            $qb = $this->productRepository->getQueryBuilderBySearchData($searchData);
+            $qb = $this->productRepository->getQueryBuilderBySearchDataForNew($searchData);
             $query = $qb->setMaxResults(5)->getQuery();
             $products = $query->getResult();
             return $products;
