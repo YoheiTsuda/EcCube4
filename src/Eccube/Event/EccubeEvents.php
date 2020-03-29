@@ -80,6 +80,20 @@ final class EccubeEvents
     const ADMIN_CONTENT_NEWS_DELETE_COMPLETE = 'admin.content.news.delete.complete';
 
     /**
+     * Admin/Content/NewsController
+     * 2020.03.12 tsuda add
+     */
+    // index
+    const ADMIN_CONTENT_SQLOUTPUT_INDEX_INITIALIZE = 'admin.content.sqloutput.index.initialize';
+
+    // edit
+    const ADMIN_CONTENT_SQLOUTPUT_EDIT_INITIALIZE = 'admin.content.sqloutput.edit.initialize';
+    const ADMIN_CONTENT_SQLOUTPUT_EDIT_COMPLETE = 'admin.content.sqloutput.edit.complete';
+
+    // delete
+    const ADMIN_CONTENT_SQLOUTPUT_DELETE_COMPLETE = 'admin.content.sqloutput.delete.complete';
+
+    /**
      * Admin/Content/PageController
      */
     // index

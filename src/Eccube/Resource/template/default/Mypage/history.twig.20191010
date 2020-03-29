@@ -36,19 +36,10 @@ file that was distributed with this source code.
                         <dt>{{ 'ご注文番号'|trans }}</dt>
                         <dd>{{ Order.order_no }}</dd>
                     </div>
-
-                    {% for Shipping in Order.Shippings %}
-
                     {% if BaseInfo.option_mypage_order_status_display %}
                         <div class="ec-definitions">
                             <dt>{{ 'ご注文状況'|trans }}</dt>
                             <dd>{{ Order.CustomerOrderStatus }}</dd>
-                        </div>
-                        <div class="ec-definitions">
-                            <dt>{{ '問合せ番号'|trans }}</dt>
-                            <dd>{{ Shipping.TrackingNumber }}：
-                            <a href="http://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do?okurijoNo={{ Shipping.TrackingNumber }}" target="_blank">佐川</a>／
-                            <a href="https://track.seino.co.jp/cgi-bin/gnpquery.pgm?GNPNO1={{ Shipping.TrackingNumber }}" target="_blank">西濃</a></dd>
                         </div>
                     {% endif %}
                     {% if BaseInfo.isOptionPoint %}
@@ -67,10 +58,7 @@ file that was distributed with this source code.
                     <div class="ec-rectHeading">
                         <h2>{{ '配送情報'|trans }}</h2>
                     </div>
-                {# 2019/09/19 問い合わせ番号追加 tsuda #}
-                {#    {% for Shipping in Order.Shippings %} #}
-                {# 2019/09/19 問い合わせ番号追加 tsuda #}
-
+                    {% for Shipping in Order.Shippings %}
                         <div class="ec-orderDelivery__title">{{ 'お届け先'|trans }}{% if Order.multiple %}({{ loop.index }}){% endif %}</div>
                         {% for orderItem in Shipping.productOrderItems %}
                             <div class="ec-orderDelivery__item">

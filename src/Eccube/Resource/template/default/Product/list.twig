@@ -123,6 +123,7 @@ file that was distributed with this source code.
             </div>
             <div class="ec-searchnavRole__infos">
                 <div class="ec-searchnavRole__counter">
+                <!-- {{ dump() }} -->
                     {% if pagination.totalItemCount > 0 %}
                         {{ '<span class="ec-font-bold">%count%件</span><span>の商品が見つかりました</span>'|trans({ '%count%': pagination.totalItemCount })|raw }}
                     {% else %}
